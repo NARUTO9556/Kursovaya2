@@ -3,23 +3,20 @@ package com.example.demo.Controller;
 import com.example.demo.Exceptions.NoQuestionsAvailableException;
 import com.example.demo.Services.ExaminerService;
 import com.example.demo.model.Question;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
+
 @RestController
 @RequestMapping("/exam")
 public class ExamController {
-    private ExaminerService examinerService;
-    @Autowired
+    private final ExaminerService examinerService;
+
     public ExamController(ExaminerService examinerService) {
         this.examinerService = examinerService;
     }
-    @GetMapping("/questions")
-    public List<Question> getQuestions(@RequestParam int amount) throws NoQuestionsAvailableException {
+    @GetMapping("/get/{amount}")
+    public Set<Question> getQuestions(@PathVariable int amount) throws NoQuestionsAvailableException {
         return examinerService.getQuestions(amount);
     }
 }

@@ -3,8 +3,8 @@ package com.example.demo.model;
 import java.util.Objects;
 
 public class Question {
-    private String question;
-    public String answer;
+    private final String question;
+    public final String answer;
 
     public Question(String question, String answer) {
         this.question = question;

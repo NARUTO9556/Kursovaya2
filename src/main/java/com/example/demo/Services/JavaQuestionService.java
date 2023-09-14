@@ -9,10 +9,18 @@ import java.util.Random;
 @Service
 public class JavaQuestionService implements QuestionService {
     private final List<Question> javaQuestions;
+    private final Random random = new Random();
 
     public JavaQuestionService() {
         javaQuestions = new ArrayList<>();
     }
+
+    @Override
+    public void addQuestion(String question, String answer) {
+        Question addQuestion = new Question(question, answer);
+        javaQuestions.add(addQuestion);
+    }
+
     @Override
     public void addQuestion(Question question) {
         javaQuestions.add(question);
@@ -33,7 +41,6 @@ public class JavaQuestionService implements QuestionService {
         if (javaQuestions.isEmpty()) {
             throw new RuntimeException("Нет доступных вопросов по Java.");
         }
-        Random random = new Random();
         int randomIndex = random.nextInt(javaQuestions.size());
         return javaQuestions.get(randomIndex);
     }

@@ -4,11 +4,14 @@ import com.example.demo.Exceptions.NoQuestionsAvailableException;
 import com.example.demo.model.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,7 +19,7 @@ import static org.mockito.Mockito.*;
 class ExaminerServiceImplTest {
     @Mock
     private QuestionService questionService;
-
+    @InjectMocks
     private ExaminerServiceImpl examinerService;
 
     @BeforeEach
@@ -27,17 +30,16 @@ class ExaminerServiceImplTest {
 
     @Test
     public void testGetQuestions() {
-        List<Question> allQuestions = new ArrayList<>();
-        allQuestions.add(new Question("Q1", "A1"));
-        allQuestions.add(new Question("Q2", "A2"));
-        allQuestions.add(new Question("Q3", "A3"));
+        Question question1 = new Question("Q1", "A1");
+        Question question2 = new Question("Q2", "A2");
 
-        when(questionService.getAllQuestions()).thenReturn(allQuestions);
+        when(questionService.getRandomQuestion()).thenReturn(question1, question1, question2);
 
-        List<Question> selectedQuestions = examinerService.getQuestions(2);
+        Set<Question> questions = examinerService.getQuestions(2);
 
-        assertEquals(2, selectedQuestions.size());
-        assertTrue(allQuestions.containsAll(selectedQuestions));
+        assertEquals(2, questions.size());
+        assertTrue(questions.contains(question1));
+        assertTrue(questions.contains(question2));
     }
 
     @Test

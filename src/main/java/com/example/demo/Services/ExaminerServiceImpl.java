@@ -4,39 +4,27 @@ import com.example.demo.Exceptions.NoQuestionsAvailableException;
 import com.example.demo.model.Question;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
     private final QuestionService questionService;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public ExaminerServiceImpl(QuestionService questionService) {
         this.questionService = questionService;
     }
 
     @Override
-    public List<Question> getQuestions(int amount) {
-        List<Question> allQuestions = questionService.getAllQuestions();
-        int totalQuestions = allQuestions.size();
-
-        if (amount > totalQuestions) {
-            throw new NoQuestionsAvailableException("Not enough questions available.");
-        }
-
-        List<Question> selectedQuestions = new ArrayList<>();
-        List<Integer> selectedIndices = new ArrayList<>();
-
-        while (selectedQuestions.size() < amount) {
-            int randomIndex = random.nextInt(totalQuestions);
-
-            if (!selectedIndices.contains(randomIndex)) {
-                selectedIndices.add(randomIndex);
-                selectedQuestions.add(allQuestions.get(randomIndex));
+    public Set<Question> getQuestions(int amount) {
+        Set<Question> questions = new HashSet<>();
+        while (questions.size() < amount) {
+            Question question = questionService.getRandomQuestion();
+            if (question == null) {
+                throw new NoQuestionsAvailableException("Недостаточно вопросов");
             }
+            questions.add(question);
         }
-        return selectedQuestions;
+        return questions;
     }
 }
