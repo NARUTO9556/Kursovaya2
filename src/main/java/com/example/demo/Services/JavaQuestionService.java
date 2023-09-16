@@ -3,45 +3,45 @@ package com.example.demo.Services;
 import com.example.demo.model.Question;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 @Service
 public class JavaQuestionService implements QuestionService {
-    private final List<Question> javaQuestions;
+    private final Set<Question> questions;
     private final Random random = new Random();
 
     public JavaQuestionService() {
-        javaQuestions = new ArrayList<>();
+        questions = new HashSet<>();
     }
 
     @Override
-    public void addQuestion(String question, String answer) {
-        Question addQuestion = new Question(question, answer);
-        javaQuestions.add(addQuestion);
+    public Question addQuestion(String question, String answer) {
+        Question item = new Question(question, answer);
+        questions.add(item);
+        return item;
     }
 
     @Override
-    public void addQuestion(Question question) {
-        javaQuestions.add(question);
+    public Question addQuestion(Question question) {
+        questions.add(question);
+        return question;
     }
 
     @Override
-    public void removeQuestion(Question question) {
-        javaQuestions.remove(question);
+    public Question removeQuestion(Question question) {
+        questions.remove(question);
+        return question;
     }
 
     @Override
-    public List<Question> getAllQuestions() {
-        return javaQuestions;
+    public Collection<Question> getAllQuestions() {
+        return questions;
     }
 
     @Override
     public Question getRandomQuestion() {
-        if (javaQuestions.isEmpty()) {
-            throw new RuntimeException("Нет доступных вопросов по Java.");
-        }
-        int randomIndex = random.nextInt(javaQuestions.size());
-        return javaQuestions.get(randomIndex);
+        int max = questions.size();
+        List<Question> questionList = new ArrayList<>(questions);
+        return questionList.get((int) (Math.random() * max));
     }
 }

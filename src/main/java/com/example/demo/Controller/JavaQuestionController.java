@@ -5,12 +5,13 @@ import com.example.demo.Services.QuestionService;
 import com.example.demo.model.Question;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 @RestController
 @RequestMapping("/exam/java")
 public class JavaQuestionController {
-    private final JavaQuestionService questionService;
-    public JavaQuestionController(JavaQuestionService questionService) {
+    private final QuestionService questionService;
+    public JavaQuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
     @PostMapping("/add")
@@ -20,13 +21,13 @@ public class JavaQuestionController {
         return question;
     }
     @DeleteMapping("/remove")
-    public Question removeQuestion(@RequestParam String questionText, String questionAnswer) {
+    public Question removeQuestion(@RequestParam String questionText,@RequestParam String questionAnswer) {
         Question question = new Question(questionText, questionAnswer);
         questionService.removeQuestion(question);
         return question;
     }
     @GetMapping
-    public List<Question> getAllQuestions() {
+    public Collection<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }
 }
