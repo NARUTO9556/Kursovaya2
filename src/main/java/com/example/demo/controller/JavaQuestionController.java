@@ -1,12 +1,11 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
-import com.example.demo.Services.JavaQuestionService;
-import com.example.demo.Services.QuestionService;
+import com.example.demo.services.QuestionService;
 import com.example.demo.model.Question;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
+
 @RestController
 @RequestMapping("/exam/java")
 public class JavaQuestionController {

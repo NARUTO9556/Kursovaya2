@@ -1,9 +1,8 @@
-package com.example.demo.Services;
+package com.example.demo.services;
 
 import com.example.demo.model.Question;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface QuestionService {
     Question addQuestion(String question, String answer);

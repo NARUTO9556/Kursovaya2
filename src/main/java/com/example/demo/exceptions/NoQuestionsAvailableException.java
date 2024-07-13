@@ -1,4 +1,4 @@
-package com.example.demo.Exceptions;
+package com.example.demo.exceptions;
 
 public class NoQuestionsAvailableException extends RuntimeException {
     public NoQuestionsAvailableException(String message) {

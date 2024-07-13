@@ -1,6 +1,6 @@
-package com.example.demo.Services;
+package com.example.demo.services;
 
-import com.example.demo.Exceptions.NoQuestionsAvailableException;
+import com.example.demo.exceptions.NoQuestionsAvailableException;
 import com.example.demo.model.Question;
 import org.springframework.stereotype.Service;
 
